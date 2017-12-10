@@ -39,7 +39,9 @@ fn main() {
 
 
     let mut renderer = Renderer {
-        gl: GlGraphics::new(opengl)
+        gl: GlGraphics::new(opengl),
+        mouse_pos: [0.0; 2],
+        mouse_radius: 0.3
     };
 
 
@@ -52,6 +54,10 @@ fn main() {
         if let Some(_) = e.update_args() {
             particle_space.process_movement();
             particle_space.update_connections(0.15);
+        }
+
+        if let Some(pos) = e.mouse_cursor_args() {
+            renderer.set_mouse_pos(pos);
         }
     }
 }

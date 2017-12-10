@@ -12,12 +12,15 @@ pub struct Particle {
 
 
 impl Particle {
-    pub fn new(x: f64, y: f64, particle_speed: f64) -> Particle {
+    pub fn new(x: f64, y: f64, max_particle_speed: f64) -> Particle {
         let mut rng = rand::thread_rng();
 
         let horizontal_speed_modifier = if rng.gen::<bool>() { 1.0 } else { -1.0 };
         let vertical_speed_modifier = if rng.gen::<bool>() { 1.0 } else { -1.0 };
-        let size = rng.gen_range(1.5, 3.0);
+        let size = rng.gen_range(1.0, 3.0);
+
+        let particle_speed = (size / 3.0) * max_particle_speed;
+
 
         Particle {
             x,
@@ -42,10 +45,18 @@ impl Particle {
     }
 
     pub fn distance_between(particle1: &Particle, particle2: &Particle) -> f64 {
-        let distances = (particle1.x - particle2.x,
+        let (dx, dy) = (particle1.x - particle2.x,
                          particle1.y - particle2.y);
 
-        let distances_sqr = distances.0.powi(2) + distances.1.powi(2);
+        let distances_sqr = dx.powi(2) + dy.powi(2);
+
+        distances_sqr.sqrt()
+    }
+
+    pub fn distance_to_point(&self, point: [f64; 2]) -> f64 {
+        let (dx, dy) = (self.x - point[0], self.y - point[1]);
+
+        let distances_sqr = dx.powi(2) + dy.powi(2);
 
         distances_sqr.sqrt()
     }
