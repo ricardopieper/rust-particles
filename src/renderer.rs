@@ -17,20 +17,25 @@ impl Renderer {
                   args: &RenderArgs) {
         use graphics::*;
 
-        let circle = ellipse::circle(0.0, 0.0, 5.0);
+
 
         self.gl.draw(args.viewport(), |c, gl| {
             // Clear the screen.
-            clear(rgb(4.0, 0.0, 46.0, 1.0), gl);
+            clear(rgb(33.0, 46.0, 71.0, 1.0), gl);
 
             for particle in particle_space.particles.iter() {
                 let (x, y) = (args.width as f64 * particle.x,
                               args.height as f64 * particle.y);
 
-                let transform = c.transform.trans(x, y);
+                let circle = ellipse::circle(x, y, particle.size);
+                let bright_radius = ellipse::circle(x, y, particle.size * 40.);
 
-                let light_blue = rgb(180.0, 180.0, 255.0, 1.0);
-                ellipse(light_blue, circle, transform, gl);
+                let light_blue = rgb(60.0, 160.0, 220.0, 1.0);
+                let white_bright = rgb(100.0, 150.0, 255.0, 0.005);
+
+                ellipse(light_blue, circle, c.transform, gl);
+                ellipse(white_bright, bright_radius, c.transform, gl);
+
             }
 
 
@@ -50,7 +55,7 @@ impl Renderer {
 
                     let line_coord = [start_x, start_y, end_x, end_y];
 
-                    let light_blue = rgb(180.0, 180.0, 255.0, pair.strength as f32);
+                    let light_blue = rgb(43.0, 86.0, 120.0, pair.strength as f32);
 
                     line(light_blue, 1.0, line_coord, c.transform, gl);
                 }

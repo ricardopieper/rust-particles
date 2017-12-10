@@ -11,14 +11,12 @@ pub struct ParticleSpace {
 }
 
 impl ParticleSpace {
+    pub fn create_particles(amount_particles: i32, particle_max_speed: f64) -> Vec<Particle> {
+        let mut rng = rand::thread_rng();
+        let range = Range::new(particle_max_speed / 10.0, particle_max_speed);
 
-   pub fn create_particles(amount_particles: i32, particle_max_speed: f64) -> Vec<Particle> {
-       let mut rng = rand::thread_rng();
-       let range = Range::new(particle_max_speed / 10.0, particle_max_speed);
-
-       let mut particles : Vec<Particle> = vec![];
-        for _ in 0 .. amount_particles {
-
+        let mut particles: Vec<Particle> = vec![];
+        for _ in 0..amount_particles {
             let particle = Particle::new(
                 rng.next_f64(),
                 rng.next_f64(),
@@ -31,17 +29,13 @@ impl ParticleSpace {
     }
 
 
-
     pub fn new(particles: Vec<Particle>) -> ParticleSpace {
-
         let mut connections: Vec<ConnectionStatus> = vec![];
 
         for idx1 in 0..particles.len() {
-            for idx2 in 0..particles.len() {
-                if idx1 != idx2 {
-                    let connection = ConnectionStatus::new(idx1, idx2);
-                    connections.push(connection)
-                }
+            for idx2 in idx1 + 1..particles.len() {
+                let connection = ConnectionStatus::new(idx1, idx2);
+                connections.push(connection)
             }
         }
 
@@ -58,7 +52,6 @@ impl ParticleSpace {
 
     pub fn update_connections(&mut self, radius: f64) {
         for pair in self.connections.iter_mut() {
-
             let particle1 = &self.particles[pair.idx1];
             let particle2 = &self.particles[pair.idx2];
 

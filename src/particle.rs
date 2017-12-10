@@ -5,6 +5,7 @@ use rand::Rng;
 pub struct Particle {
     pub x: f64,
     pub y: f64,
+    pub size: f64,
     speed_x: f64,
     speed_y: f64,
 }
@@ -16,10 +17,12 @@ impl Particle {
 
         let horizontal_speed_modifier = if rng.gen::<bool>() { 1.0 } else { -1.0 };
         let vertical_speed_modifier = if rng.gen::<bool>() { 1.0 } else { -1.0 };
+        let size = rng.gen_range(1.5, 3.0);
 
         Particle {
             x,
             y,
+            size,
             speed_x: horizontal_speed_modifier * particle_speed,
             speed_y: vertical_speed_modifier * particle_speed
         }
@@ -45,11 +48,5 @@ impl Particle {
         let distances_sqr = distances.0.powi(2) + distances.1.powi(2);
 
         distances_sqr.sqrt()
-    }
-}
-
-impl PartialEq for Particle {
-    fn eq(&self, other: &Particle) -> bool {
-        self.x == other.x && self.y == other.y
     }
 }

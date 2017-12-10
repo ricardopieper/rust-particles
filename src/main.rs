@@ -28,10 +28,11 @@ fn main() {
     )
         .opengl(opengl)
         .exit_on_esc(true)
+        .samples(4)
         .build()
         .unwrap();
 
-    let particles = ParticleSpace::create_particles(25, 0.001);
+    let particles = ParticleSpace::create_particles(70, 0.0005);
 
 
     let mut particle_space = ParticleSpace::new(particles);
