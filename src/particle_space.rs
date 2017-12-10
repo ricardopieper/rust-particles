@@ -65,19 +65,13 @@ impl ParticleSpace {
             let distance = Particle::distance_between(particle1, particle2);
 
             if distance < radius {
-
-                pair.strength += distance / 10.0;
-                if pair.strength > 1.0 {
-                    pair.strength = 1.0;
+                if pair.strength < 1.0 {
+                    pair.strength += distance / 60.0;
                 }
-
             } else {
-
-                pair.strength -= distance / 10.0;
-                if pair.strength < 0.0 {
-                    pair.strength = 0.0;
+                if pair.strength > 0.0 {
+                    pair.strength -= distance / 60.0;
                 }
-
             }
         }
     }
