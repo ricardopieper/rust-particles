@@ -7,7 +7,8 @@ use connections::ConnectionStatus;
 
 pub struct ParticleSpace {
     pub particles: Vec<Particle>,
-    pub connections: Vec<ConnectionStatus>
+    pub connections: Vec<ConnectionStatus>,
+    pub connection_radius: f64
 }
 
 impl ParticleSpace {
@@ -29,7 +30,7 @@ impl ParticleSpace {
     }
 
 
-    pub fn new(particles: Vec<Particle>) -> ParticleSpace {
+    pub fn new(particles: Vec<Particle>, connection_radius: f64) -> ParticleSpace {
         let mut connections: Vec<ConnectionStatus> = vec![];
 
         for idx1 in 0..particles.len() {
@@ -39,7 +40,7 @@ impl ParticleSpace {
             }
         }
 
-        ParticleSpace { connections, particles }
+        ParticleSpace { connections, particles, connection_radius }
     }
 
     pub fn process_movement(&mut self) {
@@ -50,14 +51,14 @@ impl ParticleSpace {
         }
     }
 
-    pub fn update_connections(&mut self, radius: f64) {
+    pub fn update_connections(&mut self) {
         for pair in self.connections.iter_mut() {
             let particle1 = &self.particles[pair.idx1];
             let particle2 = &self.particles[pair.idx2];
 
-            let distance = Particle::distance_between(particle1, particle2);
+            let distance = particle1.pos.distance_to_point(&particle2.pos);
 
-            if distance < radius {
+            if distance < self.connection_radius {
                 if pair.strength < 1.0 {
                     pair.strength += distance / 60.0;
                 }
