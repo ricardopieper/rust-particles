@@ -24,7 +24,7 @@ impl Renderer {
 
         self.gl.draw(args.viewport(), |c, gl| {
             // Clear the screen.
-            clear(rgb(33.0, 46.0, 71.0, 1.0), gl);
+            clear(rgb(33.0, 48.0, 72.0, 1.0), gl);
 
             for particle in particle_space.particles.iter() {
                 let (x, y) = (args.width as f64 * particle.x,
@@ -34,7 +34,7 @@ impl Renderer {
                 let bright_radius = ellipse::circle(x, y, particle.size * 40.);
 
                 let light_blue = rgb(60.0, 160.0, 220.0, 1.0);
-                let white_bright = rgb(100.0, 150.0, 255.0, 0.005);
+                let white_bright = rgb(100.0, 150.0, 255.0, 0.002);
 
                 ellipse(light_blue, circle, c.transform, gl);
                 ellipse(white_bright, bright_radius, c.transform, gl);

@@ -32,7 +32,7 @@ fn main() {
         .build()
         .unwrap();
 
-    let particles = ParticleSpace::create_particles(70, 0.0005);
+    let particles = ParticleSpace::create_particles(80, 0.00025);
 
 
     let mut particle_space = ParticleSpace::new(particles);

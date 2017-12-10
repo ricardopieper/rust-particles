@@ -17,7 +17,7 @@ impl Particle {
 
         let horizontal_speed_modifier = if rng.gen::<bool>() { 1.0 } else { -1.0 };
         let vertical_speed_modifier = if rng.gen::<bool>() { 1.0 } else { -1.0 };
-        let size = rng.gen_range(1.0, 3.0);
+        let size = rng.gen_range(0.5, 3.0);
 
         let particle_speed = (size / 3.0) * max_particle_speed;
 
