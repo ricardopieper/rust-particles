@@ -1,0 +1,14 @@
+[package]
+name = "particles"
+version = "0.1.0"
+authors = ["Ricardo Pieper <ricardopieper@live.com>"]
+
+[[bin]]
+name = "particles"
+
+[dependencies]
+piston = "*"
+piston2d-graphics = "*"
+piston2d-opengl_graphics = "*"
+pistoncore-glutin_window = "*"
+rand = "*"
