@@ -19,10 +19,9 @@ use particle_space::ParticleSpace;
 use renderer::Renderer;
 
 fn main() {
-    // Change this to OpenGL::V2_1 if not working.
+
     let opengl = OpenGL::V3_2;
 
-    // Create an Glutin window.
     let mut window: Window = WindowSettings::new(
         "Connected Particles",
         [800, 600]
@@ -32,13 +31,12 @@ fn main() {
         .build()
         .unwrap();
 
-    let particles = ParticleSpace::create_particles(50, 0.0008);
+    let particles = ParticleSpace::create_particles(25, 0.001);
 
 
     let mut particle_space = ParticleSpace::new(particles);
 
 
-    // Create a new game and run it.
     let mut renderer = Renderer {
         gl: GlGraphics::new(opengl)
     };
